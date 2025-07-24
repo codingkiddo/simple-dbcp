@@ -1,0 +1,16 @@
+package com.simple.dbcp;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+public abstract class SimpleDataSourceConfig {
+
+	private static final Logger logger = LoggerFactory.getLogger(SimpleDataSourceConfig.class);
+	
+	SimpleDataSourceConfig() {}
+	
+	 /** The username to use when connecting to the database. */
+    private String username;
+    /** The password to use when connecting to the database. */
+    private String password;
+}
