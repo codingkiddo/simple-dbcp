@@ -11,7 +11,9 @@ import javax.sql.DataSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.simple.dbcp.objectpool.PoolService;
 import com.simple.dbcp.pool.Connector;
+import com.simple.dbcp.stcache.StatementCache;
 
 public class SimpleConfig {
 
