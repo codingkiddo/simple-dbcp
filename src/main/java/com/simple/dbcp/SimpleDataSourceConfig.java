@@ -7,6 +7,8 @@ import javax.sql.DataSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.simple.dbcp.pool.Connector;
+
 public abstract class SimpleDataSourceConfig {
 
 	private static final Logger logger = LoggerFactory.getLogger(SimpleDataSourceConfig.class);
@@ -22,4 +24,5 @@ public abstract class SimpleDataSourceConfig {
     private String driverClassName = null;
     private String jdbcUrl;
     private DataSource externalDataSource = null;
+    private Connector connector = null;
 }
