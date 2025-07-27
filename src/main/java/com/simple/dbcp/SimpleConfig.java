@@ -16,6 +16,7 @@ import com.simple.dbcp.objectpool.util.ConcurrentCollection;
 import com.simple.dbcp.objectpool.util.ConcurrentLinkedDequeCollection;
 import com.simple.dbcp.pool.ConnHolder;
 import com.simple.dbcp.pool.Connector;
+import com.simple.dbcp.pool.SimpleDBCPObjectFactory;
 import com.simple.dbcp.stcache.StatementCache;
 
 public class SimpleConfig {
@@ -25,13 +26,13 @@ public class SimpleConfig {
 	public static final String DEFAULT_PROPERTIES_CONFIG_FILE_NAME = "simple-dbcp-config.properties";
     public static final String DEFAULT_XML_CONFIG_FILE_NAME = "simple-dbcp-config.xml";
 
-    public static final String SQLSTATE_POOL_NOTSTARTED_ERROR = "VI000";
-    public static final String SQLSTATE_POOL_CLOSED_ERROR     = "VI001";
-    public static final String SQLSTATE_TIMEOUT_ERROR         = "VI002";
-    public static final String SQLSTATE_CONN_INIT_ERROR       = "VI003";
-    public static final String SQLSTATE_INTERRUPTED_ERROR     = "VI004";
-    public static final String SQLSTATE_OBJECT_CLOSED_ERROR   = "VI005";
-    public static final String SQLSTATE_WRAPPER_ERROR         = "VI006";
+    public static final String SQLSTATE_POOL_NOTSTARTED_ERROR = "E000";
+    public static final String SQLSTATE_POOL_CLOSED_ERROR     = "E001";
+    public static final String SQLSTATE_TIMEOUT_ERROR         = "E002";
+    public static final String SQLSTATE_CONN_INIT_ERROR       = "E003";
+    public static final String SQLSTATE_INTERRUPTED_ERROR     = "E004";
+    public static final String SQLSTATE_OBJECT_CLOSED_ERROR   = "E005";
+    public static final String SQLSTATE_WRAPPER_ERROR         = "E006";
 
     static final int STATEMENT_CACHE_MAX_SIZE = 2000;
     
@@ -63,7 +64,7 @@ public class SimpleConfig {
 
     private PoolService<ConnHolder> pool = null;
     private ConcurrentCollection<ConnHolder> concurrentCollection = new ConcurrentLinkedDequeCollection<>();
-    private ViburObjectFactory connectionFactory = null;
+    private SimpleDBCPObjectFactory connectionFactory = null;
     private TakenConnectionsFormatter takenConnectionsFormatter = null;
     private ThreadedPoolReducer poolReducer = null;
 
