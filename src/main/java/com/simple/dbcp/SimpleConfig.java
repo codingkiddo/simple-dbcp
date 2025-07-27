@@ -12,6 +12,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.simple.dbcp.objectpool.PoolService;
+import com.simple.dbcp.objectpool.util.ConcurrentCollection;
+import com.simple.dbcp.objectpool.util.ConcurrentLinkedDequeCollection;
+import com.simple.dbcp.pool.ConnHolder;
 import com.simple.dbcp.pool.Connector;
 import com.simple.dbcp.stcache.StatementCache;
 
