@@ -16,6 +16,7 @@ import com.simple.dbcp.objectpool.util.ConcurrentCollection;
 import com.simple.dbcp.objectpool.util.ConcurrentLinkedDequeCollection;
 import com.simple.dbcp.pool.ConnHolder;
 import com.simple.dbcp.pool.Connector;
+import com.simple.dbcp.pool.QueryStatistics;
 import com.simple.dbcp.pool.SimpleDBCPObjectFactory;
 import com.simple.dbcp.stcache.StatementCache;
 
@@ -118,4 +119,494 @@ public class SimpleConfig {
 
     private final ConnHooks connHooks = newConnHooks();
     private final InvocationHooks invocationHooks = newInvocationHooks();
+    
+    
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public Driver getDriver() {
+        return driver;
+    }
+
+    public void setDriver(Driver driver) {
+        this.driver = driver;
+    }
+
+    public Properties getDriverProperties() {
+        return driverProperties;
+    }
+
+    public void setDriverProperties(Properties driverProperties) {
+        this.driverProperties = driverProperties;
+    }
+
+    public String getDriverClassName() {
+        return driverClassName;
+    }
+
+    public void setDriverClassName(String driverClassName) {
+        this.driverClassName = driverClassName;
+    }
+
+    public String getJdbcUrl() {
+        return jdbcUrl;
+    }
+
+    public void setJdbcUrl(String jdbcUrl) {
+        this.jdbcUrl = jdbcUrl;
+    }
+
+    public DataSource getExternalDataSource() {
+        return externalDataSource;
+    }
+
+    public void setExternalDataSource(DataSource externalDataSource) {
+        this.externalDataSource = externalDataSource;
+    }
+
+    public Connector getConnector() {
+        return connector;
+    }
+
+    protected void setConnector(Connector connector) {
+        this.connector = connector;
+    }
+
+    public int getConnectionIdleLimitInSeconds() {
+        return connectionIdleLimitInSeconds;
+    }
+
+    public void setConnectionIdleLimitInSeconds(int connectionIdleLimitInSeconds) {
+        this.connectionIdleLimitInSeconds = connectionIdleLimitInSeconds;
+    }
+
+    public int getValidateTimeoutInSeconds() {
+        return validateTimeoutInSeconds;
+    }
+
+    public void setValidateTimeoutInSeconds(int validateTimeoutInSeconds) {
+        this.validateTimeoutInSeconds = validateTimeoutInSeconds;
+    }
+
+    public String getTestConnectionQuery() {
+        return testConnectionQuery;
+    }
+
+    public void setTestConnectionQuery(String testConnectionQuery) {
+        this.testConnectionQuery = testConnectionQuery;
+    }
+
+    public String getInitSQL() {
+        return initSQL;
+    }
+
+    public void setInitSQL(String initSQL) {
+        this.initSQL = initSQL;
+    }
+
+    public boolean isUseNetworkTimeout() {
+        return useNetworkTimeout;
+    }
+
+    public void setUseNetworkTimeout(boolean useNetworkTimeout) {
+        this.useNetworkTimeout = useNetworkTimeout;
+    }
+
+    public Executor getNetworkTimeoutExecutor() {
+        return networkTimeoutExecutor;
+    }
+
+    public void setNetworkTimeoutExecutor(Executor networkTimeoutExecutor) {
+        this.networkTimeoutExecutor = networkTimeoutExecutor;
+    }
+
+    public int getPoolInitialSize() {
+        return poolInitialSize;
+    }
+
+    public void setPoolInitialSize(int poolInitialSize) {
+        this.poolInitialSize = poolInitialSize;
+    }
+
+    public int getPoolMaxSize() {
+        return poolMaxSize;
+    }
+
+    public void setPoolMaxSize(int poolMaxSize) {
+        this.poolMaxSize = poolMaxSize;
+    }
+
+    public boolean isPoolFair() {
+        return poolFair;
+    }
+
+    public void setPoolFair(boolean poolFair) {
+        this.poolFair = poolFair;
+    }
+
+    public boolean isPoolEnableConnectionTracking() {
+        return poolEnableConnectionTracking;
+    }
+
+    public void setPoolEnableConnectionTracking(boolean poolEnableConnectionTracking) {
+        this.poolEnableConnectionTracking = poolEnableConnectionTracking;
+    }
+
+    public PoolService<ConnHolder> getPool() {
+        return pool;
+    }
+
+    protected void setPool(PoolService<ConnHolder> pool) {
+        this.pool = pool;
+    }
+
+    protected ConcurrentCollection<ConnHolder> getConcurrentCollection() {
+        return concurrentCollection;
+    }
+
+    protected void setConcurrentCollection(ConcurrentCollection<ConnHolder> concurrentCollection) {
+        this.concurrentCollection = concurrentCollection;
+    }
+
+    protected ViburObjectFactory getConnectionFactory() {
+        return connectionFactory;
+    }
+
+    protected void setConnectionFactory(ViburObjectFactory connectionFactory) {
+        this.connectionFactory = connectionFactory;
+    }
+
+    public TakenConnectionsFormatter getTakenConnectionsFormatter() {
+        return takenConnectionsFormatter;
+    }
+
+    public void setTakenConnectionsFormatter(TakenConnectionsFormatter takenConnectionsFormatter) {
+        this.takenConnectionsFormatter = takenConnectionsFormatter;
+    }
+
+    protected ThreadedPoolReducer getPoolReducer() {
+        return poolReducer;
+    }
+
+    protected void setPoolReducer(ThreadedPoolReducer poolReducer) {
+        this.poolReducer = poolReducer;
+    }
+
+    protected String getPoolReducerClass() {
+        return poolReducerClass;
+    }
+
+    protected void setPoolReducerClass(String poolReducerClass) {
+        this.poolReducerClass = poolReducerClass;
+    }
+
+    public int getReducerTimeIntervalInSeconds() {
+        return reducerTimeIntervalInSeconds;
+    }
+
+    public void setReducerTimeIntervalInSeconds(int reducerTimeIntervalInSeconds) {
+        this.reducerTimeIntervalInSeconds = reducerTimeIntervalInSeconds;
+    }
+
+    public int getReducerSamples() {
+        return reducerSamples;
+    }
+
+    public void setReducerSamples(int reducerSamples) {
+        this.reducerSamples = reducerSamples;
+    }
+
+    public boolean isAllowConnectionAfterTermination() {
+        return allowConnectionAfterTermination;
+    }
+
+    public void setAllowConnectionAfterTermination(boolean allowConnectionAfterTermination) {
+        this.allowConnectionAfterTermination = allowConnectionAfterTermination;
+    }
+
+    public boolean isAllowUnwrapping() {
+        return allowUnwrapping;
+    }
+
+    public void setAllowUnwrapping(boolean allowUnwrapping) {
+        this.allowUnwrapping = allowUnwrapping;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * <b>NOTE:</b> the pool name can be set only once; pool renaming is not supported.
+     *
+     * @param name the pool name to use
+     */
+    public void setName(String name) {
+        if (name == null || (name = name.trim()).isEmpty()) {
+            logger.error("Invalid pool name {}", name);
+            return;
+        }
+        if (!defaultName.equals(this.name) || defaultName.equals(name)) {
+            logger.error("Pool name is already set or duplicated, existing name = {}, incoming name = {}", this.name, name);
+            return;
+        }
+        this.name = name;
+    }
+
+    public String getJmxName() {
+        return "org.vibur.dbcp:type=ViburDBCP-" + name;
+    }
+
+    public boolean isEnableJMX() {
+        return enableJMX;
+    }
+
+    public void setEnableJMX(boolean enableJMX) {
+        this.enableJMX = enableJMX;
+    }
+
+    public long getConnectionTimeoutInMs() {
+        return connectionTimeoutInMs;
+    }
+
+    public void setConnectionTimeoutInMs(long connectionTimeoutInMs) {
+        this.connectionTimeoutInMs = connectionTimeoutInMs;
+    }
+
+    public int getLoginTimeoutInSeconds() {
+        return loginTimeoutInSeconds;
+    }
+
+    public void setLoginTimeoutInSeconds(int loginTimeoutInSeconds) {
+        this.loginTimeoutInSeconds = loginTimeoutInSeconds;
+    }
+
+    public long getAcquireRetryDelayInMs() {
+        return acquireRetryDelayInMs;
+    }
+
+    public void setAcquireRetryDelayInMs(long acquireRetryDelayInMs) {
+        this.acquireRetryDelayInMs = acquireRetryDelayInMs;
+    }
+
+    public int getAcquireRetryAttempts() {
+        return acquireRetryAttempts;
+    }
+
+    public void setAcquireRetryAttempts(int acquireRetryAttempts) {
+        this.acquireRetryAttempts = acquireRetryAttempts;
+    }
+
+    public int getStatementCacheMaxSize() {
+        return statementCacheMaxSize;
+    }
+
+    public void setStatementCacheMaxSize(int statementCacheMaxSize) {
+        this.statementCacheMaxSize = statementCacheMaxSize;
+    }
+
+    public StatementCache getStatementCache() {
+        return statementCache;
+    }
+
+    protected void setStatementCache(StatementCache statementCache) {
+        this.statementCache = statementCache;
+    }
+
+    public String getCriticalSQLStates() {
+        return criticalSQLStates;
+    }
+
+    public void setCriticalSQLStates(String criticalSQLStates) {
+        this.criticalSQLStates = criticalSQLStates;
+    }
+
+    public long getLogConnectionLongerThanMs() {
+        return logConnectionLongerThanMs;
+    }
+
+    public void setLogConnectionLongerThanMs(long logConnectionLongerThanMs) {
+        this.logConnectionLongerThanMs = logConnectionLongerThanMs;
+    }
+
+    public boolean isLogStackTraceForLongConnection() {
+        return logStackTraceForLongConnection;
+    }
+
+    public void setLogStackTraceForLongConnection(boolean logStackTraceForLongConnection) {
+        this.logStackTraceForLongConnection = logStackTraceForLongConnection;
+    }
+
+    public long getLogQueryExecutionLongerThanMs() {
+        return logQueryExecutionLongerThanMs;
+    }
+
+    public void setLogQueryExecutionLongerThanMs(long logQueryExecutionLongerThanMs) {
+        this.logQueryExecutionLongerThanMs = logQueryExecutionLongerThanMs;
+    }
+
+    public boolean isLogStackTraceForLongQueryExecution() {
+        return logStackTraceForLongQueryExecution;
+    }
+
+    public void setLogStackTraceForLongQueryExecution(boolean logStackTraceForLongQueryExecution) {
+        this.logStackTraceForLongQueryExecution = logStackTraceForLongQueryExecution;
+    }
+
+    public int getCollectQueryStatistics() {
+        return collectQueryStatistics;
+    }
+
+    public void setCollectQueryStatistics(int collectQueryStatistics) {
+        this.collectQueryStatistics = collectQueryStatistics;
+    }
+
+    public QueryStatistics getQueryStatistics() {
+        return queryStatistics;
+    }
+
+    public long getLogLargeResultSet() {
+        return logLargeResultSet;
+    }
+
+    public void setLogLargeResultSet(long logLargeResultSet) {
+        this.logLargeResultSet = logLargeResultSet;
+    }
+
+    public boolean isLogStackTraceForLargeResultSet() {
+        return logStackTraceForLargeResultSet;
+    }
+
+    public void setLogStackTraceForLargeResultSet(boolean logStackTraceForLargeResultSet) {
+        this.logStackTraceForLargeResultSet = logStackTraceForLargeResultSet;
+    }
+
+    public boolean isIncludeQueryParameters() {
+        return includeQueryParameters;
+    }
+
+    public void setIncludeQueryParameters(boolean includeQueryParameters) {
+        this.includeQueryParameters = includeQueryParameters;
+    }
+
+    public boolean isLogTakenConnectionsOnTimeout() {
+        return logTakenConnectionsOnTimeout;
+    }
+
+    public void setLogTakenConnectionsOnTimeout(boolean logTakenConnectionsOnTimeout) {
+        this.logTakenConnectionsOnTimeout = logTakenConnectionsOnTimeout;
+    }
+
+    public boolean isLogAllStackTracesOnTimeout() {
+        return logAllStackTracesOnTimeout;
+    }
+
+    public void setLogAllStackTracesOnTimeout(boolean logAllStackTracesOnTimeout) {
+        this.logAllStackTracesOnTimeout = logAllStackTracesOnTimeout;
+    }
+
+    public Pattern getLogLineRegex() {
+        return logLineRegex;
+    }
+
+    public void setLogLineRegex(Pattern logLineRegex) {
+        this.logLineRegex = logLineRegex;
+    }
+
+    public boolean isResetDefaultsAfterUse() {
+        return resetDefaultsAfterUse;
+    }
+
+    public void setResetDefaultsAfterUse(boolean resetDefaultsAfterUse) {
+        this.resetDefaultsAfterUse = resetDefaultsAfterUse;
+    }
+
+    public Boolean getDefaultAutoCommit() {
+        return defaultAutoCommit;
+    }
+
+    public void setDefaultAutoCommit(Boolean defaultAutoCommit) {
+        this.defaultAutoCommit = defaultAutoCommit;
+    }
+
+    public Boolean getDefaultReadOnly() {
+        return defaultReadOnly;
+    }
+
+    public void setDefaultReadOnly(Boolean defaultReadOnly) {
+        this.defaultReadOnly = defaultReadOnly;
+    }
+
+    public String getDefaultTransactionIsolation() {
+        return defaultTransactionIsolation;
+    }
+
+    public void setDefaultTransactionIsolation(String defaultTransactionIsolation) {
+        this.defaultTransactionIsolation = defaultTransactionIsolation;
+    }
+
+    public String getDefaultCatalog() {
+        return defaultCatalog;
+    }
+
+    public void setDefaultCatalog(String defaultCatalog) {
+        this.defaultCatalog = defaultCatalog;
+    }
+
+    public Integer getDefaultTransactionIsolationIntValue() {
+        return defaultTransactionIsolationIntValue;
+    }
+
+    public void setDefaultTransactionIsolationIntValue(Integer defaultTransactionIsolationIntValue) {
+        this.defaultTransactionIsolationIntValue = defaultTransactionIsolationIntValue;
+    }
+
+    public boolean isClearSQLWarnings() {
+        return clearSQLWarnings;
+    }
+
+    public void setClearSQLWarnings(boolean clearSQLWarnings) {
+        this.clearSQLWarnings = clearSQLWarnings;
+    }
+
+    public ConnHooks getConnHooks() {
+        return connHooks;
+    }
+
+    public InvocationHooks getInvocationHooks() {
+        return invocationHooks;
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() +
+                "[driverClassName = " + driverClassName +
+                ", jdbcUrl = " + jdbcUrl +
+                ", username = " + username +
+                ", externalDataSource = " + externalDataSource +
+                ", poolInitialSize = " + poolInitialSize +
+                ", poolMaxSize = " + poolMaxSize +
+                ", poolFair = " + poolFair +
+                ", pool = " + pool +
+                ", name = " + name +
+                ", connectionTimeoutInMs = " + connectionTimeoutInMs +
+                ", loginTimeoutInSeconds = " + loginTimeoutInSeconds +
+                ", acquireRetryDelayInMs = " + acquireRetryDelayInMs +
+                ", acquireRetryAttempts = " + acquireRetryAttempts +
+                ", statementCacheMaxSize = " + statementCacheMaxSize +
+                ']';
+    }
 }
