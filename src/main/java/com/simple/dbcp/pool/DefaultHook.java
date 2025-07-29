@@ -11,6 +11,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.simple.dbcp.SimpleConfig;
+import com.simple.dbcp.util.JdbcUtils;
+import com.simple.dbcp.util.SimpleUtils;
 
 import static java.lang.String.format;
 import static java.util.Objects.requireNonNull;
@@ -38,11 +40,12 @@ public abstract class DefaultHook {
 				return;
 			}
 
-			if (!validateOrInitialize(rawConnection, config.getInitSQL(), config)) {
-				throw new SQLException("Couldn't initialize rawConnection " + rawConnection, SQLSTATE_CONN_INIT_ERROR);
+			if (!JdbcUtils.validateOrInitialize(rawConnection, config.getInitSQL(), config)) {
+				throw new SQLException("Couldn't initialize rawConnection " + rawConnection,
+						SimpleConfig.SQLSTATE_CONN_INIT_ERROR);
 			}
 
-			setDefaultValues(rawConnection, config);
+			JdbcUtils.setDefaultValues(rawConnection, config);
 		}
 
 		@Override
@@ -68,10 +71,10 @@ public abstract class DefaultHook {
 			if (logger.isWarnEnabled()) {
 				var log = new StringBuilder(4096)
 						.append(format("Call to getConnection() from pool %s took %f ms, rawConnection = %s",
-								getPoolName(config), takenMillis, rawConnection));
+								SimpleUtils.getPoolName(config), takenMillis, rawConnection));
 				if (config.isLogStackTraceForLongConnection()) {
-					log.append('\n')
-							.append(getStackTraceAsString(config.getLogLineRegex(), new Throwable().getStackTrace()));
+					log.append('\n').append(SimpleUtils.getStackTraceAsString(config.getLogLineRegex(),
+							new Throwable().getStackTrace()));
 				}
 				logger.warn(log.toString());
 			}
@@ -91,10 +94,10 @@ public abstract class DefaultHook {
 		@Override
 		public void on(Connection rawConnection, long takenNanos) throws SQLException {
 			if (config.isClearSQLWarnings()) {
-				clearWarnings(rawConnection);
+				JdbcUtils.clearWarnings(rawConnection);
 			}
 			if (config.isResetDefaultsAfterUse()) {
-				setDefaultValues(rawConnection, config);
+				JdbcUtils.setDefaultValues(rawConnection, config);
 			}
 		}
 
@@ -114,7 +117,7 @@ public abstract class DefaultHook {
 			if (logger.isWarnEnabled()) {
 				logger.warn(
 						"Pool {}, couldn't obtain SQL connection within {} ms, full list of taken connections begins:\n{}",
-						getPoolName(config), format("%.3f", takenNanos * 1e-6),
+					SimpleUtils.getPoolName(config), format("%.3f", takenNanos * 1e-6),
 						config.getTakenConnectionsFormatter().formatTakenConnections(takenConnections));
 			}
 		}
