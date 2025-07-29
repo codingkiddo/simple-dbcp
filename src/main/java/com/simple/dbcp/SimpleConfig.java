@@ -14,10 +14,15 @@ import org.slf4j.LoggerFactory;
 import com.simple.dbcp.objectpool.PoolService;
 import com.simple.dbcp.objectpool.util.ConcurrentCollection;
 import com.simple.dbcp.objectpool.util.ConcurrentLinkedDequeCollection;
+import com.simple.dbcp.objectpool.util.ThreadedPoolReducer;
 import com.simple.dbcp.pool.ConnHolder;
 import com.simple.dbcp.pool.Connector;
+import com.simple.dbcp.pool.HookHolder.ConnHooks;
+import com.simple.dbcp.pool.HookHolder.InvocationHooks;
+import com.simple.dbcp.pool.PoolReducer;
 import com.simple.dbcp.pool.QueryStatistics;
 import com.simple.dbcp.pool.SimpleDBCPObjectFactory;
+import com.simple.dbcp.pool.TakenConnectionsFormatter;
 import com.simple.dbcp.stcache.StatementCache;
 
 public class SimpleConfig {
@@ -281,11 +286,11 @@ public class SimpleConfig {
         this.concurrentCollection = concurrentCollection;
     }
 
-    protected ViburObjectFactory getConnectionFactory() {
+    protected SimpleDBCPObjectFactory getConnectionFactory() {
         return connectionFactory;
     }
 
-    protected void setConnectionFactory(ViburObjectFactory connectionFactory) {
+    protected void setConnectionFactory(SimpleDBCPObjectFactory connectionFactory) {
         this.connectionFactory = connectionFactory;
     }
 
