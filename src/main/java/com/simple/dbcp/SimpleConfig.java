@@ -17,6 +17,7 @@ import com.simple.dbcp.objectpool.util.ConcurrentLinkedDequeCollection;
 import com.simple.dbcp.objectpool.util.ThreadedPoolReducer;
 import com.simple.dbcp.pool.ConnHolder;
 import com.simple.dbcp.pool.Connector;
+import com.simple.dbcp.pool.HookHolder;
 import com.simple.dbcp.pool.HookHolder.ConnHooks;
 import com.simple.dbcp.pool.HookHolder.InvocationHooks;
 import com.simple.dbcp.pool.PoolReducer;
@@ -122,8 +123,8 @@ public class SimpleConfig {
 
     private boolean clearSQLWarnings = false;
 
-    private final ConnHooks connHooks = newConnHooks();
-    private final InvocationHooks invocationHooks = newInvocationHooks();
+    private final ConnHooks connHooks = HookHolder.newConnHooks();
+    private final InvocationHooks invocationHooks = HookHolder.newInvocationHooks();
     
     
     public String getUsername() {
