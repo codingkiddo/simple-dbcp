@@ -49,27 +49,27 @@ public final class HookHolder {
 
         @Override
         public void addOnInit(Hook.InitConnection hook) {
-            onInit = addHook(onInit, hook);
+            onInit = DefaultHook.Util.addHook(onInit, hook);
         }
 
         @Override
         public void addOnGet(Hook.GetConnection hook) {
-            onGet = addHook(onGet, hook);
+            onGet = DefaultHook.Util.addHook(onGet, hook);
         }
 
         @Override
         public void addOnClose(Hook.CloseConnection hook) {
-            onClose = addHook(onClose, hook);
+            onClose = DefaultHook.Util.addHook(onClose, hook);
         }
 
         @Override
         public void addOnDestroy(Hook.DestroyConnection hook) {
-            onDestroy = addHook(onDestroy, hook);
+            onDestroy = DefaultHook.Util.addHook(onDestroy, hook);
         }
 
         @Override
         public void addOnTimeout(Hook.GetConnectionTimeout hook) {
-            onTimeout = addHook(onTimeout, hook);
+            onTimeout = DefaultHook.Util.addHook(onTimeout, hook);
         }
 
         @Override
@@ -106,17 +106,17 @@ public final class HookHolder {
 
         @Override
         public void addOnMethodInvocation(Hook.MethodInvocation hook) {
-            onMethodInvocation = addHook(onMethodInvocation, hook);
+            onMethodInvocation = DefaultHook.Util.addHook(onMethodInvocation, hook);
         }
 
         @Override
         public void addOnStatementExecution(Hook.StatementExecution hook) {
-            onStatementExecution = addHook(onStatementExecution, hook);
+            onStatementExecution = DefaultHook.Util.addHook(onStatementExecution, hook);
         }
 
         @Override
         public void addOnResultSetRetrieval(Hook.ResultSetRetrieval hook) {
-            onResultSetRetrieval = addHook(onResultSetRetrieval, hook);
+            onResultSetRetrieval = DefaultHook.Util.addHook(onResultSetRetrieval, hook);
         }
 
         @Override

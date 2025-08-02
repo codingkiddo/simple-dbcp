@@ -1,5 +1,8 @@
 package com.simple.dbcp.pool;
 
+import static java.lang.String.format;
+import static java.util.Objects.requireNonNull;
+
 import java.lang.reflect.Method;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -13,9 +16,6 @@ import org.slf4j.LoggerFactory;
 import com.simple.dbcp.SimpleConfig;
 import com.simple.dbcp.util.JdbcUtils;
 import com.simple.dbcp.util.SimpleUtils;
-
-import static java.lang.String.format;
-import static java.util.Objects.requireNonNull;
 
 public abstract class DefaultHook {
 
@@ -166,13 +166,13 @@ public abstract class DefaultHook {
 			}
 
 			if (logException || logTime || logStatistics) {
-				var poolName = getPoolName(config);
+				var poolName = SimpleUtils.getPoolName(config);
 				if (logStatistics) {
 					logger.info("SQL query statistics from pool {}, {}", poolName, queryStatistics);
 				}
 
 				if (logException || logTime) {
-					var formattedSql = formatSql(sqlQuery, sqlQueryParams);
+					var formattedSql = SimpleUtils.formatSql(sqlQuery, sqlQueryParams);
 
 					if (logException) {
 						logger.debug("SQL query execution from pool {}:\n{}\n-- threw:", poolName, formattedSql,
@@ -185,7 +185,7 @@ public abstract class DefaultHook {
 										takenMillis, formattedSql));
 						if (config.isLogStackTraceForLongQueryExecution()) {
 							message.append('\n').append(
-									getStackTraceAsString(config.getLogLineRegex(), new Throwable().getStackTrace()));
+									SimpleUtils.getStackTraceAsString(config.getLogLineRegex(), new Throwable().getStackTrace()));
 						}
 						logger.warn(message.toString());
 					}
@@ -221,11 +221,11 @@ public abstract class DefaultHook {
 			if (logger.isWarnEnabled()) {
 				var message = new StringBuilder(4096).append(format(
 						"SQL query execution from pool %s retrieved a ResultSet with size %d, total retrieval and processing time %f ms:\n%s",
-						getPoolName(config), resultSetSize, resultSetNanoTime * 1e-6,
-						formatSql(sqlQuery, sqlQueryParams)));
+						SimpleUtils.getPoolName(config), resultSetSize, resultSetNanoTime * 1e-6,
+						SimpleUtils.formatSql(sqlQuery, sqlQueryParams)));
 				if (config.isLogStackTraceForLargeResultSet()) {
 					message.append('\n')
-							.append(getStackTraceAsString(config.getLogLineRegex(), new Throwable().getStackTrace()));
+							.append(SimpleUtils.getStackTraceAsString(config.getLogLineRegex(), new Throwable().getStackTrace()));
 				}
 				logger.warn(message.toString());
 			}
